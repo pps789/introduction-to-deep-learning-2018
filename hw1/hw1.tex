@@ -62,9 +62,9 @@
 %% Q1
 \section{Q1}
 
-\subsection{Q1.1}
+\subsection{}
 \begin{center}
-	\begin{tabular}{| l | c | r |}
+	\begin{tabular}{| c | c |}
 		\hline
         Sanghyeok & Park \\ \hline
         Computer Science \& Engineering & 2013-11400 \\
@@ -79,6 +79,29 @@
 
 %% Q2
 \section{Q2}
+
+\subsection{}
+Let positions of each chamber $1, 2, \cdots, i, \cdots, 6$.
+Position $i$ means: shot fires when $i$-th trigger.
+Let random variable $X$: value of the position.
+Let assume the probability of all possibility is equal, i.e. $P(X=i)=\frac{1}{6}$ for $i=1, \cdots, 6$.
+First player will not survive in case of $X=1, X=3, X=5$.
+Otherwise, second player will not survive.
+First player's survival probability is $P(X=2)+P(X=4)+P(X=5)=\frac{1}{2}$.
+Second player's survive probability is also $P(X=1)+P(X=3)+P(X=5)=\frac{1}{2}$.
+Therefore, I could choose any turn.
+
+\subsection{}
+If we spin the barrel after each trigger pull, then probability of death of each turn is $\frac{1}{6}$.
+For convenience, denote X when player dies, and O when player survives.
+First player will die in case of sequences: X, OOX, OOOOX, so on.
+Each 'X' has probability $\frac{1}{6}$, and 'O' has $\frac{5}{6}$.
+And we assume each trigger is independent.
+Therefore, the death probability of first player is
+$\frac{1}{6} + (\frac{5}{6})^{2}\cdot\frac{1}{6} + (\frac{5}{6})^{4} + \cdots
+= \frac{\frac{1}{6}}{1 - (\frac{5}{6})^{2}} = \frac{6}{11}$.
+And the death probability of second player is $1 - \frac{6}{11} = \frac{5}{11}$.
+Therefore, I should go second.
 
 %% Q3
 \section{Q3}
