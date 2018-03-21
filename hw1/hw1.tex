@@ -72,7 +72,7 @@
 	\end{tabular}
 \end{center}
 
-\subsection{Q1.2}
+\subsection{}
 \begin{center}
     \includegraphics{./profile.jpg}
 \end{center}
@@ -82,12 +82,12 @@
 
 \subsection{}
 Let positions of each chamber $1, 2, \cdots, i, \cdots, 6$,
-and let assume $pos=i$ means the position of bullet is $i$.
-Let assume the probability of all possibility is equal, i.e. $P({i})=\frac{1}{6}$ for $i=1, \cdots, 6$.
+and let's assume $pos=i$ means the position of bullet is $i$.
+Let's assume the probability of all possibility is equal, i.e. $P(\{i\})=\frac{1}{6}$ for $i=1, \cdots, 6$.
 First player will not survive in case of $pos=1, pos=3, pos=5$.
 Otherwise, second player will not survive.
-First player's survival probability is $P({2,4,6})=\frac{1}{2}$.
-Second player's survive probability is also $P({1,3,5})=\frac{1}{2}$.
+First player's survival probability is $P(\{2,4,6\})=\frac{1}{2}$.
+Second player's survive probability is also $P(\{1,3,5\})=\frac{1}{2}$.
 Therefore, I could choose any turn.
 
 \subsection{}
@@ -103,29 +103,55 @@ And the death probability of second player is $1 - \frac{6}{11} = \frac{5}{11}$.
 Therefore, I should go second.
 
 \subsection{}
-Now denote $pos=(i,j)$ which means the positions of bullet is $i$ and $j$.
+From now denote $pos=(i,j)$ which means the positions of bullet is $i$ and $j$.
 To remove duplicated cases, we should restrict $1 \leq i < j \leq 6$.
+Let's define $C=\{(i,j) | 1 \leq i < j \leq 6\}$.
 There are total $15$ cases, so $P(\{(1,2)\}) = \cdots = P(\{(5,6)\}) = \frac{1}{15}$.
-If I spin the barrel, I will die if and only if $i$ is odd where $pos=(i,j)$.
+If I spin the barrel, I will die if and only if $i=1$ where $pos=(i,j)$.
 Therefore, probability of death is
-$P(\{(i,j)|i \text{ is odd}, 1 \leq i < j \leq 6\})
-= P(\{(1, j) | 1 < j \leq 6\}) + P(\{(3, j) | 3 < j \leq 6\}) + P(\{(5, j) | 5 < j \leq 6\})
-= \frac{(5+3+1)}{15} = \frac{3}{5}$. \\
+$P(\{(i,j) \in C | i=1\})
+= P(\{(1,2), \cdots, (1,6)\})
+= \frac{5}{15} = \frac{1}{3}$. \\
 
 In case of non-spinning, let $A=\{(i,j) | 2 \leq i < j \leq 6\}$.
 Set $A$ means the cases that first player not died
     because no bullet is in the position $1$ chamber.
-Now, let $B=\{(i,j) | i \text{ is not odd}, 1 \leq i < j \leq 6\}$.
+Now, let $B=\{(i,j) \in C | i=2\}$.
+Set $B$ means the cases that second player will die
+    because the first bullet is in the chamber of second position.
+We should calculate $P(B|A)$.
+$|A|=4+3+2+1=10$, so $P(A) = \frac{10}{15} = \frac{2}{3}$.
+$|B|=4$, so $P(B) = \frac{4}{15}$.
+Since $B \subseteq A$, $P(A \cap B) = P(B) = \frac{4}{15}$.
+Therefore, $P(B|A) = \frac{P(A \cap B)}{P(A)} = \frac{2}{5}$,
+    it is larger than spinning case. \\
+
+Therefore, I should spin the barrel.
+
+\subsection{}
+Just do same calcuation in Q2.3, but there are only total 6 cases,
+$C = \{(1,2), (2,3), \cdots, (5,6), (1,6)\}$.
+So $P(\{(1,2)\}) = \cdots = P(\{(5,6)\}) = \frac{1}{6}$. \\
+
+If I spin the barrel, probability of death is
+$P(\{(i,j) \in C | i=1\})
+= P(\{(1,2),(1,6)\})
+= \frac{2}{6} = \frac{1}{3}$. \\
+
+In case of non-spinning, let $A=\{(i,j) \in C | 2 \leq i\}$.
+Set $A$ means the cases that first player not died
+    because no bullet is in the position $1$ chamber.
+Now, let $B=\{(i,j) \in C | i=2\}$.
 Set $B$ means the cases that second player will die
     because the first bullet is in the chamber of even position.
 We should calculate $P(B|A)$.
-$|A|=4+3+2+1=10$, so $P(A) = \frac{10}{15} = \frac{2}{3}$.
-By above paragraph's calculation, $P(B) = 1 - \frac{3}{5} = \frac{2}{5}$.
-Since $B \subseteq A$, $P(A \cap B) = P(B) = \frac{2}{5}$.
-Therefore, $P(B|A) = \frac{P(A \cap B)}{P(A)} = \frac{3}{5}$,
-    it is same as spinning case. \\
+$A=\{(2,3),(3,4),(4,5),(5,6)\}$, so $P(A)=\frac{4}{6}$.
+$B=\{(2,3)\}$, so $P(B)=\frac{1}{6}$.
+Since $B \subseteq A$, $P(A \cap B) = P(B) = \frac{1}{6}$.
+Therefore, $P(B|A) = \frac{P(A \cap B)}{P(A)} = \frac{1}{4}$,
+    it is smaller than spinning case. \\
 
-Therefore, I could spin, but don't have to.
+Therefore, I should not spin the barrel.
 
 %% Q3
 \section{Q3}
