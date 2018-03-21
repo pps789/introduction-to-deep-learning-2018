@@ -156,6 +156,28 @@ Therefore, I should not spin the barrel.
 %% Q3
 \section{Q3}
 
+\subsection{}
+At first, $0 \leq F_X(x) \leq 1$ since $F_X$ is cdf itself.
+Therefore, $Y$ is distributed in $[0,1]$.
+Let's consider cdf of $Y$.
+$F_Y(y) = P(F_X(X) \leq y)$ for $0 < y < 1$, $F_Y(y) = 0$ for $y \leq 0$,
+    and $F_Y(y) = 1$ for $y \geq 1$.
+In case of $0 < y < 1$, there exists a real number $x$ such that $F_X(x)=y$
+    since $F_X$ is continuous.
+Since $F_X$ is monotonic increasing and continuous,
+    there exists a real number $x_0$
+    such that $x_0 = \sup\limits_{x}\{F_X(x)=y\}$, $F_X(x_0)=y$.
+Therefore,
+$P(F_X(X) \leq y)
+= P(F_X(X) \leq F_X(x_0))
+= P(X \leq x_0)
+= F_X(x_0)
+= y$.
+Cdf of uniform distribution $U$ in $[0,1]$ is also $F_U(u)=u$ for $0 < u < 1$.
+Since pdf of $Y$ is continuous and its cdf is same of $U$'s cdf in $0 < y < 1$,
+    pdf of $Y$ and $U$ is same in $0 < y < 1$, i.e. $f_Y(y)=f_U(y)$ for $0 < y < 1$.
+Therefore, $Y$ is unofirmly distributed in $[0,1]$.
+
 %% Q4
 \section{Q4}
 
