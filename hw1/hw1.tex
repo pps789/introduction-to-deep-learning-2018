@@ -195,6 +195,16 @@ $P(F_X^{-1}(U) \leq x)
 
 %% Q4
 \section{Q4}
-
+Let shares of stock $B$ will remain $k$.
+Let RV $X$: the price of stock $A$, and $Y$: the price of stock $B$.
+The variance of total stocks is
+$V(X+kY) = V(X) + k^2V(Y) + 2kCov(X,Y)
+= \sigma_A^2 + k^2\sigma_B^2 + 2k\sigma_A\sigma_B\rho$.
+This quadratic equation is minimized when
+$k=-\frac{(\text{coefficient of }k)}{2(\text{coefficient of }k^2)}
+=-\frac{2\sigma_A\sigma_B\rho}{2\sigma_B^2}
+=-\rho\frac{\sigma_A}{\sigma_B}$.
+Therefore, if $\rho \geq 0$ then sell all shares of $B$.
+If $\rho < 0$ then sell shraes of $B$ until $-\rho\frac{\sigma_A}{\sigma_B}$ remains.
 
 \end{document}
