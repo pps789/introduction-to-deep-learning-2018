@@ -26,6 +26,8 @@ X_exacts = np.arange(0, X_sample[-1], 0.001)
 Y_exacts = list(map(F, X_exacts))
 plt.plot(X_exacts, Y_exacts, label='exacts', color='red')
 
-plt.legend(['samples', 'exacts'])
+plt.legend(loc='lower right')
+plt.xlabel('value of X')
+plt.ylabel('probability')
 
 plt.savefig('q3-3.png')
