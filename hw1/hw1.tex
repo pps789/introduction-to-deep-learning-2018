@@ -207,4 +207,39 @@ $k=-\frac{(\text{coefficient of }k)}{2(\text{coefficient of }k^2)}
 Therefore, if $\rho \geq 0$ then sell all shares of $B$.
 If $\rho < 0$ then sell shraes of $B$ until $-\rho\frac{\sigma_A}{\sigma_B}$ remains.
 
+%% Q5
+\section{Q5}
+
+\subsection{}
+To maximize variance, we should scatter data into such range $[a,b]$.
+I thought that the largest variance case is, the data appears only at $a$ and $b$ (`both ends' of range).
+So I defined pmf of $X$ s.t. $P(X=a)=P(x=b)=\frac{1}{2}$.
+In this case,
+$V(X) = E(X^2) - E(X)^2
+= ((a^2 + b^2)\frac{1}{2} - ((a+b)\frac{1}{2})^2)
+= (2a^2+2b^2-(a^2+2ab+b^2))\frac{1}{4}
+= \frac{a^2-2ab+b^2}{4}
+= \frac{(a-b)^2}{4}$. \\
+
+However, to show this value is maximum was very hard.
+I found this link, \href{https://stats.stackexchange.com/questions/45588/variance-of-a-bounded-random-variable}{here}.
+I got big hint from above link, reparameterize and $E[X^2] \leq E[X]$ if $X$ takes value only in $[0,1]$.
+To prove $V(X) \leq \frac{(a-b)^2}{4}$, take any random variable $X$ s.t. it takes value only in range $[a,b]$.
+If $a=b$, there is nothing to show.
+In case of $a \neq b$, Let $Y=\frac{X-a}{b-a}$.
+$V(Y)=\frac{V(X)}{(b-a)^2}$, so it is sufficient to show that $V(Y) \leq \frac{1}{4}$.
+$0 \leq Y \leq 1$ implies $Y^2 \leq Y$.
+Therefore, $E[Y^2] \leq E[Y]$.
+Let $E[Y]=u$, then
+$V(Y) = E[Y^2] - u^2
+\leq u - u^2
+= -(u-\frac{1}{2})^2 + \frac{1}{4}
+\leq \frac{1}{4}$.
+Equality holds when $u=E[Y]=\frac{1}{2}$.
+
+\subsection{}
+Already solved in above question; define pmf of $X$ s.t. $P(X=a)=P(x=b)=\frac{1}{2}$.
+Otherwise, $P(X=t)=0 (t \neq a, t \neq b)$.
+I already show that $V(X) = \frac{(a-b)^2}{4}$.
+
 \end{document}
