@@ -185,11 +185,11 @@ Therefore, $Y$ is unofirmly distributed in $[0,1]$.
 Before start, let's restrict domain of x where $\{x|f_X(x) > 0\}$ (I found some hints in eTL).
 Let's denote such domain $A$.
 Then, we can assume that $F_X^{-1}$ exists.
-To find cdf of $F_X^{-1}$, we should calculate $P(F_X^{-1}(U) \leq x)$ for $x \in A$.
+To find cdf of $F_X^{-1}(U)$, we should calculate $P(F_X^{-1}(U) \leq x)$ for $x \in A$.
 Since we restrict the domain of x, there exists $u \in (0,1)$ s.t. $F_X^{-1}(u)=x$.
 Since $F_X$ is continuous and strictly increasing (in such domain),
-    $F_X^{-1}(U) \leq x \iff u \leq F_X(x)$.
-Therefore, cdf of $F_X^{-1}$ at $x$ is
+    $F_X^{-1}(U) \leq x \iff U \leq F_X(x)$.
+Therefore, cdf of $F_X^{-1}(U)$ at $x$ is
 $P(F_X^{-1}(U) \leq x)
 = P(U \leq F_X(x) = u)
 = F_U(u)
