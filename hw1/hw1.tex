@@ -225,7 +225,9 @@ $k=-\frac{(\text{coefficient of }k)}{2(\text{coefficient of }k^2)}
 =-\frac{2\sigma_A\sigma_B\rho}{2\sigma_B^2}
 =-\rho\frac{\sigma_A}{\sigma_B}$.
 Therefore, if $\rho \geq 0$ then sell all shares of $B$.
-If $\rho < 0$ then sell shraes of $B$ until $-\rho\frac{\sigma_A}{\sigma_B}$ remains.
+If $\rho < 0$ then sell shraes of $B$ until $S=-\rho\frac{\sigma_A}{\sigma_B}$ remains.
+More precisely, if you have shares of $B$ less than $S$, then you should not sell any stock.
+If not, since $S$ is real (positive) value, your remain shares of $B$ should $round(S)$.
 
 %% Q5
 \section{Q5}
@@ -244,7 +246,7 @@ $V(X) = E(X^2) - E(X)^2
 However, to show this value is maximum was very hard.
 I found this link, \href{https://stats.stackexchange.com/questions/45588/variance-of-a-bounded-random-variable}{here}.
 I got big hint from above link, reparameterize and $E[X^2] \leq E[X]$ if $X$ takes value only in $[0,1]$.
-To prove $V(X) \leq \frac{(a-b)^2}{4}$, take any random variable $X$ s.t. it takes value only in range $[a,b]$.
+To prove $V(X) \leq \frac{(a-b)^2}{4}$, take any random variable $X$ s.t. takes value only in range $[a,b]$.
 If $a=b$, there is nothing to show.
 In case of $a \neq b$, Let $Y=\frac{X-a}{b-a}$.
 $V(Y)=\frac{V(X)}{(b-a)^2}$, so it is sufficient to show that $V(Y) \leq \frac{1}{4}$.
