@@ -37,11 +37,43 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes,backgrounds}
 
+\usepackage{amssymb}
+
 \begin{document}
 \pagestyle{fancy}
 
 %% Q1
 \section{Q1}
+
+To find all eigenvalues, we can just find all eigenvectors.
+When I observe such matrix, I just found eigenvectors easily.
+Denote the standard basis as $\{e_i \in \mathbb{R}^p: 1 \leq i \leq p\}$.
+At first, vector $[1, 1, \cdots, 1]^T=\sum\limits_{i=1}^{p} e_i$ is eigenvector,
+    because $X(\sum\limits_{i=1}^{p} e_i)
+    = \sum\limits_{i=1}^{p} Xe_i
+    = [(n-1)c+1, (n-1)c+1, \cdots, (n-1)c+1]^T
+    = ((n-1)c+1)\sum\limits_{i=1}^{p} e_i$ (Sum of each row is identical!).
+So I just found one eigenvalue, $(n-1)c+1$. \\
+
+And I just notice that each pair of rows has only two different element.
+For all $1 \leq i < j \leq p$, $e_i - e_j$ could be an eigenvector, because
+\begin{align*}
+    (X(e_i-e_j))_k &= X_{ki} - X_{kj} \\
+    &= (c + \delta_{ki}(1-c)) - (c + \delta_{kj}(1-c)) \\
+    &= (1-c)(\delta_{ki} - \delta_{kj}) \\
+    &=
+    \begin{cases}
+        (1-c), & k=i \\
+        -(1-c), & k=j \\
+        0, & o.w.
+    \end{cases}
+\end{align*}
+Therefore, $X(e_i-e_j) = (1-c)(e_i-e_j)$, so $e_i-e_j$ is eigenvectors.
+However, we have to pick linearly independent eigenvectors, so just pick $j=i+1$, i.e.
+    $(e_1-e_2), (e_2-e_3), \cdots, (e_{p-1}-e_p)$ (total $p-1$ vectors).
+Finally, I just found that all eigenvalue of such eigenvectors is $(1-c)$. \\
+
+In conclusion, eigenvalues are $(1-c)$ ($p-1$ repetition), $(n-1)c+1$.
 
 %% Q2
 \section{Q2}
