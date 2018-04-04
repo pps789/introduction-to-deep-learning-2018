@@ -11,6 +11,7 @@
 \usepackage{palatino}
 %\renewcommand{\rmdefault}{palatino}
 \usepackage{fancyhdr}
+\usepackage{listings}
 %\pagestyle{fancy}
 \rhead{}
 \lhead{}
@@ -86,15 +87,44 @@ where $D$ is diagonal matrix and $U$ is unitary matrix.
 Let $\bar{X} = X - \mu$ then $\bar{X} \sim N(0, \Sigma)$,
 so we just have to find $\bar{X}$. \\
 
-Let $S=UD^{\frac{1}{2}}$ and $\bar{X}=S^TZ$, then
+Let $S=UD^{\frac{1}{2}}$ and $\bar{X}=SZ$, then
 $E[\bar{X}\bar{X}^T]
-= E[S^TZZ^TS]
-= S^TE[ZZ^T]S$.
+= E[SZZ^TS^T]
+= SE[ZZ^T]S^T$.
 Since samples of $Z$ are independent, non-diagonal element is $0$.
 Also each $z_i$ is from $N(0,1)$, so diagonal element is $1$.
-Therefore, $S^TE[ZZ^T]S = S^TIS = S^TS = \Sigma$.
+Therefore, $SE[ZZ^T]S^T = SIS^T = SS^T = \Sigma$.
 
-Finally, let $X = \mu + S^TZ$, then $X \sim N(\mu, \Sigma)$.
+Finally, let $X = \mu + SZ$, then $X \sim N(\mu, \Sigma)$.
+
+%% Q2-2
+\subsection{}
+In this case, we can do diagonalize instead of SVD.
+Clearly eigenvectors are $[1,1]^T$ and $[1,-1]^T$,
+and corresponding eigenvalues are $1.9$ and $0.1$.
+Therefore,
+$U =
+\begin{bmatrix}
+    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+    \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+\end{bmatrix}$.
+And
+$D =
+\begin{bmatrix}
+    1.9 & 0 \\
+    0 & 0.1
+\end{bmatrix}$.
+Finally, $\Sigma = UDU^T$. \\
+
+After run following code with python3, image `q2-2.png' appears.
+
+\lstinputlisting[language=Python]{./q2-2.py}
+
+\begin{center}
+    \includegraphics[totalheight=0.5\textheight]{./q2-2.png}
+\end{center}
+
+Last two plots look similar!
 
 %% Q3
 \section{Q3}
