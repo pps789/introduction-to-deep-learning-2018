@@ -78,6 +78,24 @@ In conclusion, eigenvalues are $(1-c)$ ($p-1$ repetition), $(n-1)c+1$.
 %% Q2
 \section{Q2}
 
+%% Q2-1
+\subsection{}
+Since $\Sigma$ is real symmetric semi-positive definite matrix,
+we can represent $\Sigma = UDU^T$ using SVD,
+where $D$ is diagonal matrix and $U$ is unitary matrix.
+Let $\bar{X} = X - \mu$ then $\bar{X} \sim N(0, \Sigma)$,
+so we just have to find $\bar{X}$. \\
+
+Let $S=UD^{\frac{1}{2}}$ and $\bar{X}=S^TZ$, then
+$E[\bar{X}\bar{X}^T]
+= E[S^TZZ^TS]
+= S^TE[ZZ^T]S$.
+Since samples of $Z$ are independent, non-diagonal element is $0$.
+Also each $z_i$ is from $N(0,1)$, so diagonal element is $1$.
+Therefore, $S^TE[ZZ^T]S = S^TIS = S^TS = \Sigma$.
+
+Finally, let $X = \mu + S^TZ$, then $X \sim N(\mu, \Sigma)$.
+
 %% Q3
 \section{Q3}
 
