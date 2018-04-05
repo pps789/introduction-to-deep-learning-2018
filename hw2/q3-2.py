@@ -30,8 +30,8 @@ def grad(w):
 def f(w):
     v = 0
     for i in range(n):
-        v += max(0, 1 - w.dot(x[i]))
-    return (v/n) + lmb / 2 * np.linalg.norm(w)
+        v += max(0, 1 - y[i] * w.dot(x[i]))
+    return (v/n) + lmb / 2 * (np.linalg.norm(w) ** 2)
 
 def accuracy(w):
     ret = 0
