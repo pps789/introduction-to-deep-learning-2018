@@ -31,7 +31,7 @@ def f(w):
     v = 0
     for i in range(n):
         v += max(0, 1 - w.dot(x[i]))
-    return (v/n) + lmb / 2 + np.linalg.norm(w)
+    return (v/n) + lmb / 2 * np.linalg.norm(w)
 
 def accuracy(w):
     ret = 0
