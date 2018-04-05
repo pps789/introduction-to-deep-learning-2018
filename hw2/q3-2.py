@@ -47,7 +47,7 @@ def accuracy(w):
 fv = []
 ac = []
 
-for _ in range(100):
+for _ in range(10000):
     grad_w = grad(w0)
 
     w0 += -step_size * grad_w
@@ -55,9 +55,13 @@ for _ in range(100):
     ac.append(accuracy(w0))
 
 plt.plot(fv)
+plt.xlabel('iteration')
+plt.ylabel('function value')
 plt.savefig('q3-2-fv.png')
 
 plt.clf()
 
 plt.plot(ac)
+plt.xlabel('iteration')
+plt.ylabel('accuracy')
 plt.savefig('q3-2-ac.png')
