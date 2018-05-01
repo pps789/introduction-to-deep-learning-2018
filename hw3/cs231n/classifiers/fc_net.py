@@ -81,7 +81,7 @@ class TwoLayerNet(object):
         # class scores for X and storing them in the scores variable.              #
         ############################################################################
         out1, cache1 = affine_relu_forward(X, self.params['W1'], self.params['b1'])
-        out2, cache2 = affine_forward(out_a1, self.params['W2'], self.params['b2'])
+        out2, cache2 = affine_forward(out1, self.params['W2'], self.params['b2'])
         scores = out2
         ############################################################################
         #                             END OF YOUR CODE                             #
