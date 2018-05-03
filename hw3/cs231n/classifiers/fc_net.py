@@ -248,7 +248,7 @@ class FullyConnectedNet(object):
         # self.bn_params[1] to the forward pass for the second batch normalization #
         # layer, etc.                                                              #
         ############################################################################
-        L = len(hidden_dims)
+        L = len(self.hidden_dims)
         outs, caches = {0: X}, {}
         for i in range(L):
             W_name = 'W' + str(i+1)
