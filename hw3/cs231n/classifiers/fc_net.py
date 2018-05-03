@@ -284,6 +284,7 @@ class FullyConnectedNet(object):
         loss += 0.5 * self.reg * (np.linalg.norm(self.params['W' + str(L+1)]) ** 2)
 
         dx, grads['W' + str(L+1)], grads['b' + str(L+1)] = affine_backward(dx, caches[L+1])
+        grads['W' + str(L+1)] += self.reg * self.params['W' + str(L+1)]
         for i in range(L, 0, -1):
             W_name = 'W' + str(i)
             b_name = 'b' + str(i)
