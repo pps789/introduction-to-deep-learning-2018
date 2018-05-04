@@ -293,7 +293,7 @@ class FullyConnectedNet(object):
                         )
 
             if self.use_dropout:
-                outs[i], droupout_caches[i] = dropout_forward(outs[i], self.dropout_param)
+                outs[i], dropout_caches[i] = dropout_forward(outs[i], self.dropout_param)
 
         outs[L], caches[L] = affine_forward(outs[L-1], self.params['W' + str(L)], self.params['b' + str(L)])
         scores = outs[L]
