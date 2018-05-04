@@ -254,7 +254,7 @@ class FullyConnectedNet(object):
             W_name = 'W' + str(i)
             b_name = 'b' + str(i)
             outs[i], caches[i] = affine_relu_forward(outs[i-1], self.params[W_name], self.params[b_name])
-        outs[L], caches[L] = affine_forward(outs[L], self.params['W' + str(L)], self.params['b' + str(L)])
+        outs[L], caches[L] = affine_forward(outs[L-1], self.params['W' + str(L)], self.params['b' + str(L)])
         scores = outs[L]
         ############################################################################
         #                             END OF YOUR CODE                             #
