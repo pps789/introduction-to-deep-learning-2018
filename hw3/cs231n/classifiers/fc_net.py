@@ -274,7 +274,7 @@ class FullyConnectedNet(object):
         for i in range(1, L):
             W_name = 'W' + str(i)
             b_name = 'b' + str(i)
-            if use_batchnorm:
+            if self.use_batchnorm:
                 gamma_name = 'gamma' + str(i)
                 beta_name = 'beta' + str(i)
                 outs[i], caches[i] = affine_bn_relu_forward(
@@ -283,13 +283,13 @@ class FullyConnectedNet(object):
                         self.params[b_name],
                         self.params[gamma_name],
                         self.params[beta_name]
+                        self.bn_params[i-1] # NOT i.
                         )
             else:
                 outs[i], caches[i] = affine_relu_forward(
                         outs[i-1],
                         self.params[W_name],
                         self.params[b_name],
-                        self.bn_params[i-1] # NOT i.
                         )
         outs[L], caches[L] = affine_forward(outs[L-1], self.params['W' + str(L)], self.params['b' + str(L)])
         scores = outs[L]
@@ -325,7 +325,7 @@ class FullyConnectedNet(object):
         for i in range(L-1, 0, -1):
             W_name = 'W' + str(i)
             b_name = 'b' + str(i)
-            if use_batchnorm:
+            if self.use_batchnorm:
                 gamma_name = 'gamma' + str(i)
                 beta_name = 'beta' + str(i)
                 dx, grads[W_name], grads[b_name], grads[gamma_name], grads[beta_name] = \
