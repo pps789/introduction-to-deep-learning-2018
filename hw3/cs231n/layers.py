@@ -403,8 +403,9 @@ def conv_forward_naive(x, w, b, conv_param):
             target = x_pad[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW]
             for f in range(F):
                 conv = target * w[f]
+                sums = np.sum(conv, axis=(1, 2, 3))
                 for n in range(N):
-                    out[n][f][i][j] = np.sum(conv, axis=(1, 2, 3))
+                    out[n][f][i][j] = sums[n]
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
