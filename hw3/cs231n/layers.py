@@ -174,7 +174,13 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         # variance, storing your result in the running_mean and running_var   #
         # variables.                                                          #
         #######################################################################
-        pass
+        sample_mean = np.mean(x, axis=0)
+        sample_var = np.var(x, axis=0)
+
+        x_hat = (x - sample_mean) / (np.sqrt(sample_var + eps))
+
+        out = x_hat * gamma + beta;
+        cache = (x, gamma, beta)
         #######################################################################
         #                           END OF YOUR CODE                          #
         #######################################################################
@@ -185,7 +191,15 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         # then scale and shift the normalized data using gamma and beta.      #
         # Store the result in the out variable.                               #
         #######################################################################
-        pass
+        sample_mean = np.mean(x, axis=0)
+        sample_var = np.var(x, axis=0)
+        running_mean = momentum * running_mean + (1 - momentum) * sample_mean
+        running_var = momentum * running_var + (1 - momentum) * sample_var
+
+        x_hat = (x - running_mean) / (np.sqrt(running_var + eps))
+
+        out = x_hat * gamma + beta;
+        cache = (x, gamma, beta)
         #######################################################################
         #                          END OF YOUR CODE                           #
         #######################################################################
@@ -221,7 +235,21 @@ def batchnorm_backward(dout, cache):
     # TODO: Implement the backward pass for batch normalization. Store the    #
     # results in the dx, dgamma, and dbeta variables.                         #
     ###########################################################################
-    pass
+    x, gamma, beta = cache
+    sample_mean = np.mean(x, axis=0)
+    sample_var = np.var(x, axis=0)
+    x_hat = (x - sample_mean) / (np.sqrt(sample_var + eps))
+    N = np.shape(x)[0]
+
+    dx_hat = dout * gamma
+    dvar = np.sum(dx_hat * (x - sample_mean) * (-0.5) * ((sample_var + eps) ** (-1.5)), axis=0)
+    dmean = np.sum(dx_hat * (-1.) * ((sample_var + eps) ** (-0.5)), axis=0) \
+            + dvar * np.mean(-2. * (x - sample_mean), axis=0)
+    dx = dx_hat * ((sample_var + eps) ** (-0.5)) \
+            + dvar * 2. / N * (x - sample_mean) \
+            + dmean / N
+    dgamma = np.sum(dout * x_hat, axis=0)
+    dbeta = np.sum(dout, axis=0)
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
