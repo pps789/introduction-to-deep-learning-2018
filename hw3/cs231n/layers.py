@@ -390,7 +390,7 @@ def conv_forward_naive(x, w, b, conv_param):
     ###########################################################################
     stride = conv_param['stride']
     pad = conv_param['pad']
-    x_pad = np.pad(((0,0), (0,0), (pad, pad), (pad, pad)), 'constant')
+    x_pad = np.pad(x, ((0,0), (0,0), (pad, pad), (pad, pad)), 'constant')
 
     (N, C, H, W) = np.shape(x_pad)
     (F, C, HH, WW) = np.shape(w)
