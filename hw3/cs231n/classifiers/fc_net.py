@@ -248,14 +248,14 @@ class FullyConnectedNet(object):
         # self.bn_params[1] to the forward pass for the second batch normalization #
         # layer, etc.                                                              #
         ############################################################################
-        L = self.num_layers - 1
+        L = self.num_layers
         outs, caches = {0: X}, {}
-        for i in range(L):
-            W_name = 'W' + str(i+1)
-            b_name = 'b' + str(i+1)
-            outs[i+1], caches[i+1] = affine_relu_forward(outs[i], self.params[W_name], self.params[b_name])
-        outs[L+1], caches[L+1] = affine_forward(outs[L], self.params['W' + str(L+1)], self.params['b' + str(L+1)])
-        scores = outs[L+1]
+        for i in range(1, L):
+            W_name = 'W' + str(i)
+            b_name = 'b' + str(i)
+            outs[i], caches[i] = affine_relu_forward(outs[i-1], self.params[W_name], self.params[b_name])
+        outs[L], caches[L] = affine_forward(outs[L], self.params['W' + str(L)], self.params['b' + str(L)])
+        scores = outs[L]
         ############################################################################
         #                             END OF YOUR CODE                             #
         ############################################################################
@@ -279,13 +279,13 @@ class FullyConnectedNet(object):
         # of 0.5 to simplify the expression for the gradient.                      #
         ############################################################################
         loss, dx = softmax_loss(scores, y)
-        for i in range(L):
-            loss += 0.5 * self.reg * (np.linalg.norm(self.params['W' + str(i+1)]) ** 2)
-        loss += 0.5 * self.reg * (np.linalg.norm(self.params['W' + str(L+1)]) ** 2)
+        for i in range(1, L):
+            loss += 0.5 * self.reg * (np.linalg.norm(self.params['W' + str(i)]) ** 2)
+        loss += 0.5 * self.reg * (np.linalg.norm(self.params['W' + str(L)]) ** 2)
 
-        dx, grads['W' + str(L+1)], grads['b' + str(L+1)] = affine_backward(dx, caches[L+1])
-        grads['W' + str(L+1)] += self.reg * self.params['W' + str(L+1)]
-        for i in range(L, 0, -1):
+        dx, grads['W' + str(L)], grads['b' + str(L)] = affine_backward(dx, caches[L])
+        grads['W' + str(L)] += self.reg * self.params['W' + str(L)]
+        for i in range(L-1, 0, -1):
             W_name = 'W' + str(i)
             b_name = 'b' + str(i)
             dx, grads[W_name], grads[b_name] = affine_relu_backward(dx, caches[i])
