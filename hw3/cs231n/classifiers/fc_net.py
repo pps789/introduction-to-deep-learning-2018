@@ -270,7 +270,7 @@ class FullyConnectedNet(object):
         # layer, etc.                                                              #
         ############################################################################
         L = self.num_layers
-        outs, caches = {0: X}, {}
+        outs, caches, dropout_caches = {0: X}, {}, {}
         for i in range(1, L):
             W_name = 'W' + str(i)
             b_name = 'b' + str(i)
@@ -291,6 +291,10 @@ class FullyConnectedNet(object):
                         self.params[W_name],
                         self.params[b_name],
                         )
+
+            if self.use_dropout:
+                outs[i], droupout_caches[i] = dropout_forward(outs[i], dropout_param)
+
         outs[L], caches[L] = affine_forward(outs[L-1], self.params['W' + str(L)], self.params['b' + str(L)])
         scores = outs[L]
         ############################################################################
@@ -325,6 +329,8 @@ class FullyConnectedNet(object):
         for i in range(L-1, 0, -1):
             W_name = 'W' + str(i)
             b_name = 'b' + str(i)
+            if self.use_dropout:
+                dx = dropout_backward(dx, dropout_caches[i])
             if self.use_batchnorm:
                 gamma_name = 'gamma' + str(i)
                 beta_name = 'beta' + str(i)
