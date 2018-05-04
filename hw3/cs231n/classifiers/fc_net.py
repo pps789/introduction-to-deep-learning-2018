@@ -204,7 +204,7 @@ class FullyConnectedNet(object):
             b_name = 'b' + str(layer)
             self.params[W_name] = weight_scale * np.random.randn(in_dim, out_dim).astype(dtype)
             self.params[b_name] = np.zeros(out_dim).astype(dtype)
-            if use_batchnorm:
+            if self.use_batchnorm:
                 gamma_name = 'gamma' + str(layer)
                 beta_name = 'beta' + str(layer)
                 self.params[gamma_name] = np.ones(out_dim).astype(dtype)
@@ -282,7 +282,7 @@ class FullyConnectedNet(object):
                         self.params[W_name],
                         self.params[b_name],
                         self.params[gamma_name],
-                        self.params[beta_name]
+                        self.params[beta_name],
                         self.bn_params[i-1] # NOT i.
                         )
             else:
