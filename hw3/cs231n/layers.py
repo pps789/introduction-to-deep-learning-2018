@@ -406,6 +406,8 @@ def conv_forward_naive(x, w, b, conv_param):
                 sums = np.sum(conv, axis=(1, 2, 3))
                 for n in range(N):
                     out[n][f][i][j] = sums[n]
+    for n in range(N):
+        out[n] += b
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
