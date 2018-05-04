@@ -397,7 +397,7 @@ def conv_forward_naive(x, w, b, conv_param):
     H_out = 1 + (H - HH) // stride
     W_out = 1 + (W - WW) // stride
 
-    out = np.zeros((N, F, H_out, W_out), dtype=np.dtype(x))
+    out = np.zeros((N, F, H_out, W_out))
     for i in range(H_out):
         for j in range(W_out):
             target = x_pad[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW]
