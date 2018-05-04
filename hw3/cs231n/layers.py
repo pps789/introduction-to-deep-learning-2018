@@ -180,7 +180,7 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         x_hat = (x - sample_mean) / (np.sqrt(sample_var + eps))
 
         out = x_hat * gamma + beta;
-        cache = (x, gamma, beta)
+        cache = (x, gamma, beta, eps)
         #######################################################################
         #                           END OF YOUR CODE                          #
         #######################################################################
@@ -199,7 +199,7 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         x_hat = (x - running_mean) / (np.sqrt(running_var + eps))
 
         out = x_hat * gamma + beta;
-        cache = (x, gamma, beta)
+        cache = (x, gamma, beta, eps)
         #######################################################################
         #                          END OF YOUR CODE                           #
         #######################################################################
@@ -235,7 +235,7 @@ def batchnorm_backward(dout, cache):
     # TODO: Implement the backward pass for batch normalization. Store the    #
     # results in the dx, dgamma, and dbeta variables.                         #
     ###########################################################################
-    x, gamma, beta = cache
+    x, gamma, beta, eps = cache
     sample_mean = np.mean(x, axis=0)
     sample_var = np.var(x, axis=0)
     x_hat = (x - sample_mean) / (np.sqrt(sample_var + eps))
