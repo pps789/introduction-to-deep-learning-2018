@@ -407,7 +407,8 @@ def conv_forward_naive(x, w, b, conv_param):
                 for n in range(N):
                     out[n][f][i][j] = sums[n]
     for n in range(N):
-        out[n] += b
+        for f in range(F):
+            out[n][f] += b[f]
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
