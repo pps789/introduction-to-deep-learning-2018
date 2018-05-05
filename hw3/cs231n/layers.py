@@ -527,6 +527,8 @@ def max_pool_backward_naive(dout, cache):
     ###########################################################################
     # TODO: Implement the max pooling backward pass                           #
     ###########################################################################
+    x, pool_param = cache
+
     stride = pool_param['stride']
     HH = pool_param['pool_height']
     WW = pool_param['pool_width']
