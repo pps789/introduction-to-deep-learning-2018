@@ -463,7 +463,7 @@ def conv_backward_naive(dout, cache):
                                     dw[f][c][ii][jj] += dout[n][f][i][j] * dx[n][c][dx_i][dx_j]
     for n in range(N):
         for f in range(F):
-            db[f] += np.sums(dout[n][f])
+            db[f] += np.sum(dout[n][f])
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
