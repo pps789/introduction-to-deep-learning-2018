@@ -543,7 +543,8 @@ def max_pool_backward_naive(dout, cache):
     for i in range(H_out):
         for j in range(W_out):
             target = x[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW]
-            argpool = np.unravel_index(np.argmax(target, axis=(2, 3)), target.shape)
+            target.reshape(N, C, -1)
+            argpool = np.unravel_index(np.argmax(target, axis=2), (HH, WW))
             for n in range(N):
                 for c in range(C):
                     ii, jj = argpool[n][c]
