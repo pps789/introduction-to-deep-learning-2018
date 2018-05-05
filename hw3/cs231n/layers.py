@@ -449,7 +449,7 @@ def conv_backward_naive(dout, cache):
     out = np.zeros((N, F, H_out, W_out))
     for i in range(H_out):
         for j in range(W_out):
-            target = x_pad[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW]
+            # target = x_pad[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW]
             for f in range(F):
                 # conv = target * w[f]
                 for ii in range(HH):
@@ -460,7 +460,7 @@ def conv_backward_naive(dout, cache):
                             for n in range(N):
                                 for c in range(C):
                                     dx[n][c][dx_i][dx_j] += dout[n][f][i][j] * w[f][c][ii][jj]
-                                    dw[f][c][ii][jj] += dout[n][f][i][j] * dx[n][c][dx_i][dx_j]
+                                    dw[f][c][ii][jj] += dout[n][f][i][j] * x[n][c][dx_i][dx_j]
     for n in range(N):
         for f in range(F):
             db[f] += np.sum(dout[n][f])
