@@ -433,7 +433,37 @@ def conv_backward_naive(dout, cache):
     ###########################################################################
     # TODO: Implement the convolutional backward pass.                        #
     ###########################################################################
-    pass
+    x, w, b, conv_param = cache
+    stride = conv_param['stride']
+    pad = conv_param['pad']
+    x_pad = np.pad(x, ((0,0), (0,0), (pad, pad), (pad, pad)), 'constant')
+
+    dx = np.zeros_like(x)
+    dw = np.zeros_like(w)
+    db = np.zeros_like(b)
+
+    (N, C, H, W) = np.shape(x)
+    (F, C, HH, WW) = np.shape(w)
+    (N, F, H_out, W_out) = np.shape(dout)
+
+    out = np.zeros((N, F, H_out, W_out))
+    for i in range(H_out):
+        for j in range(W_out):
+            target = x_pad[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW]
+            for f in range(F):
+                # conv = target * w[f]
+                for ii in range(HH):
+                    for jj in range(WW):
+                        dx_i = i*stride + ii - pad
+                        dx_j = j*stride + jj - pad
+                        if dx_i >= 0 and dx_j >= 0 and dx_i < H and dx_j < W:
+                            for n in range(N):
+                                for c in range(C):
+                                    dx[n][c][dx_i][dx_j] += dout[n][f][i][j] * w[f][c][ii][jj]
+                                    dw[f][c][ii][jj] += dout[n][f][i][j] * dx[n][c][dx_i][dx_j]
+    for n in range(N):
+        for f in range(F):
+            db[f] += np.sums(dout[n][f])
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
