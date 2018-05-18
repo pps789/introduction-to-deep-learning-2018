@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{mdwlist}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+\geometry{headheight=2in}
+\geometry{top=2in}
+\usepackage{palatino}
+%\renewcommand{\rmdefault}{palatino}
+\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\rhead{}
+\lhead{}
+\chead{%
+  {\vbox{%
+      \vspace{2mm}
+      \large
+      Introduction to Deep Learning M2177.0043 \hfill
+\\
+      Seoul National University
+      \\[4mm]
+      Homework \#(\textbf{4})\\
+      \textbf{Sanghyeok Park}
+    }
+  }
+}
+
+
+\usepackage{paralist}
+
+\usepackage{todonotes}
+\setlength{\marginparwidth}{2.15cm}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,backgrounds}
+
+\usepackage{amsfonts}
+
+\begin{document}
+\pagestyle{fancy}
+
+%% Q1
+\section{Q1}
+Please see the file \textit{hw4\_results.zip}.
+
+%% Q2
+\section{Q2}
+First of all, let's denote the expectation $\mathbb{E}_p[\cdots]$ as $\mathbb{E}[\cdots]$,
+    and $V_p[\cdots]$ as $V[\cdots]$.
+Then $\mathbb{E}[x] = \mu_1$ and $V[x] = \Sigma_1$.
+Therefore,
+\begin{align*}
+    D_{KL}(p, q)
+    &= \mathbb{E}[\log(\frac{p(x)}{q(x)})] \\
+    &= \mathbb{E}[\log p(x) - \log q(x)] \\
+    &= \mathbb{E}[
+        -\frac{1}{2}\log\det(2 \pi \Sigma_1)
+        -\frac{1}{2}(x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1)
+        +\frac{1}{2}\log\det(2 \pi \Sigma_2)
+        +\frac{1}{2}(x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)
+    ] \\
+    &= \frac{1}{2}\mathbb{E}[
+        \log(\frac{\det\Sigma_2}{\det\Sigma_1})
+        +(x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)
+        -(x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1)
+    ] \\
+    &= \frac{1}{2}(
+    \log(\frac{\det\Sigma_2}{\det\Sigma_1})
+    + \mathbb{E}[(x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)-(x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1)]
+    )
+\end{align*}
+
+Inside of the expectation symbol,
+\begin{align*}
+    & (x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)-(x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1) \\
+    &= x^T (\Sigma_2^{-1} - \Sigma_1^{-1}) x
+    + x^T (\Sigma_1^{-1} \mu_1 - \Sigma_2^{-1} \mu_2)
+    + (\mu_1^T \Sigma_1^{-1} - \mu_2^T \Sigma_2^{-1}) x
+    + \mu_2^T \Sigma_2^{-1} \mu_2 - \mu_1^T \Sigma_1^{-1} \mu_1
+\end{align*}
+
+Since $\mathbb{E}[x] = \mu_1$ and $\mathbb{E}[x^T] = \mu_1^T$,
+\begin{align*}
+    & \mathbb{E}[(x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)-(x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1)] \\
+    &= \mathbb{E}[x^T (\Sigma_2^{-1} - \Sigma_1^{-1}) x]
+    + \mu_1^T (\Sigma_1^{-1} \mu_1 - \Sigma_2^{-1} \mu_2)
+    + (\mu_1^T \Sigma_1^{-1} - \mu_2^T \Sigma_2^{-1}) \mu_1
+    + \mu_2^T \Sigma_2^{-1} \mu_2 - \mu_1^T \Sigma_1^{-1} \mu_1 \\
+    &= \mathbb{E}[x^T (\Sigma_2^{-1} - \Sigma_1^{-1}) x]
+    + (\mu_2 - \mu_1)^T \Sigma_2^{-1} (\mu_2 - \mu_1)
+    + \mu_1^T (\Sigma_1^{-1} - \Sigma_2^{-1}) \mu_1
+\end{align*}
+
+Now the only problem is calculate $\mathbb{E}[x^T (\Sigma_2^{-1} - \Sigma_1^{-1}) x]$.
+Inside of such expectation symbol is just 1 by 1 value,
+    so we can take trace,
+\begin{align*}
+    \mathbb{E}[x^T (\Sigma_2^{-1} - \Sigma_1^{-1}) x]
+    &= \mathbb{E}[tr(x^T (\Sigma_2^{-1} - \Sigma_1^{-1}) x)] \\
+    &= \mathbb{E}[tr((\Sigma_2^{-1} - \Sigma_1^{-1}) xx^T)] \\
+    &= tr(\mathbb{E}[(\Sigma_2^{-1} - \Sigma_1^{-1}) xx^T]) \\
+    &= tr((\Sigma_2^{-1} - \Sigma_1^{-1}) \mathbb{E}[xx^T]) \\
+    &= tr((\Sigma_2^{-1} - \Sigma_1^{-1}) (\Sigma_1 + \mu_1 \mu_1^T)) \\
+    &= tr((\Sigma_2^{-1} - \Sigma_1^{-1}) \Sigma_1)
+    + tr((\Sigma_2^{-1} - \Sigma_1^{-1}) \mu_1 \mu_1^T) \\
+    &= tr(\Sigma_2^{-1} \Sigma_1) - k + tr((\Sigma_2^{-1} - \Sigma_1^{-1}) \mu_1 \mu_1^T) \\
+    &= tr(\Sigma_2^{-1} \Sigma_1) - k + tr(\mu_1^T (\Sigma_2^{-1} - \Sigma_1^{-1}) \mu_1) \\
+    &= tr(\Sigma_2^{-1} \Sigma_1) - k + \mu_1^T (\Sigma_2^{-1} - \Sigma_1^{-1}) \mu_1
+\end{align*}
+$k$ is dimension of $p$ and $q$ (i.e. $\Sigma_1$ and $\Sigma_2$ is $k$ by $k$ matrix). \\
+
+Finally, go back to the our first equation,
+\begin{align*}
+    D_{KL}(p, q)
+    &= \frac{1}{2}(
+    \log(\frac{\det\Sigma_2}{\det\Sigma_1})
+    + \mathbb{E}[(x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)-(x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1)]
+    ) \\
+    &= \frac{1}{2}(
+    \log(\frac{\det\Sigma_2}{\det\Sigma_1})
+    + \mathbb{E}[x^T (\Sigma_2^{-1} - \Sigma_1^{-1}) x]
+    + (\mu_2 - \mu_1)^T \Sigma_2^{-1} (\mu_2 - \mu_1)
+    + \mu_1^T (\Sigma_1^{-1} - \Sigma_2^{-1}) \mu_1
+    ) \\
+    &= \frac{1}{2}(
+    \log(\frac{\det\Sigma_2}{\det\Sigma_1})
+    + tr(\Sigma_2^{-1} \Sigma_1) - k + \mu_1^T (\Sigma_2^{-1} - \Sigma_1^{-1}) \mu_1
+    + (\mu_2 - \mu_1)^T \Sigma_2^{-1} (\mu_2 - \mu_1)
+    + \mu_1^T (\Sigma_1^{-1} - \Sigma_2^{-1}) \mu_1
+    ) \\
+    &= \frac{1}{2}(
+    \log(\frac{\det\Sigma_2}{\det\Sigma_1})
+    + tr(\Sigma_2^{-1} \Sigma_1) - k
+    + (\mu_2 - \mu_1)^T \Sigma_2^{-1} (\mu_2 - \mu_1)
+    )
+\end{align*}
+\end{document}
